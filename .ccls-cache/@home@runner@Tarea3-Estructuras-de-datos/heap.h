@@ -16,11 +16,13 @@ typedef struct Heap {
   heapElem* heapArray;
 } Heap;
 
+int parent(int i);
+
 Heap* createHeap();
 
-NodoLista* heap_top(Heap* pq);
+Libro* heap_top(Heap* pq);
 
-void heap_push(Heap* pq, Libro* libro, int priority);
+void heap_push(Heap* pq, Libro* libro, int prioridad);
 
 void heap_pop(Heap* pq);
 
