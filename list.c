@@ -119,6 +119,8 @@ void cleanList(Lista * lista){
   
   lista->tail = NULL;
   lista->size = 0;
+  
+  printf("Lista limpiada\n");
 }
 
 NodoLista* findData(Lista * list, int id){
@@ -137,5 +139,25 @@ NodoLista* findData(Lista * list, int id){
 
   printf("No se encontro el Libro\n");
   return NULL;
+}
+
+// 
+void insertionSort(Lista* lista){
+  if (lista == NULL){
+    printf("Lista no existente, no se puede ordenar\n");
+    return;
+  }
+  
+  int opcion;
+  
+  switch (opcion){
+    case 1:
+      printf("Ordenar por titulo\n");
+    case 2:
+      printf("Ordenar por relevancia de palabra\n");
+    case 3:
+      
+  }
+
 }
   

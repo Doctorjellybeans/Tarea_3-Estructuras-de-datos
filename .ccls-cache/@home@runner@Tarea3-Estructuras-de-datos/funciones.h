@@ -10,7 +10,7 @@
 
 void cargarDocumentos(HashMap* hashmap);
 
-void mostrarDocumentos();
+void mostrarDocumentos(HashMap* hashmap);
 
 void Mayor_frecuencia();
 

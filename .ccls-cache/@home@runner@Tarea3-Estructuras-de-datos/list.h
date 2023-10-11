@@ -18,18 +18,20 @@ typedef struct Lista {
 
 Lista* createList();
 
-void pushFront(Lista * list, Libro* data);
+void pushFront(Lista * lista, Libro* data);
 
-void pushBack(Lista * list, Libro* data);
+void pushBack(Lista * lista, Libro* data);
 
-void pushCurrent(Lista * list, Libro* data);
+void pushCurrent(Lista * lista, Libro* data);
 
-void popFront(Lista * list);
+void popFront(Lista * lista);
 
-void popBack(Lista * list);
+void popBack(Lista * lista);
 
-NodoLista* findData(Lista * list, int id);
+NodoLista* findData(Lista * lista, int id);
 
-void cleanList(Lista * list);
+void cleanList(Lista * lista);
+
+void insertionSort(Lista* lista);
 
 #endif
