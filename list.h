@@ -18,6 +18,8 @@ typedef struct Lista {
 
 Lista* createList();
 
+void printLista(Lista* lista);
+
 void pushFront(Lista * lista, Libro* data);
 
 void pushBack(Lista * lista, Libro* data);
@@ -32,6 +34,6 @@ NodoLista* findData(Lista * lista, int id);
 
 void cleanList(Lista * lista);
 
-void insertionSort(Lista* lista);
+void insertionSort(Lista* lista, int opcion);
 
 #endif

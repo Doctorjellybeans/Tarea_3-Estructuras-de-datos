@@ -2,12 +2,46 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <dirent.h>
 
 // Funcion para almacenar cada Libro en Hashmap
 void cargarDocumentos(HashMap* hashmap){
-  char nombreArchivo[100];
-  printf("Ingrese el nombre del archivo: ");
-  scanf("%s", nombreArchivo);
+  char nombreCarpeta[100];
+  printf("Ingrese el nombre de la carpeta ");
+  scanf("%s", nombreCarpeta);
+// mira el chat
+  
+  int hashcap=100;
+  HashMap* mapa=createMap(hashcap);
+
+  DIR* carpeta;
+  struct dirent* entry;
+  carpeta = opendir(nombreCarpeta);
+  if (carpeta == NULL){
+    printf("No se pudo abrir la carpeta");
+    return;
+  }
+  while((entry = readdir(carpeta)) != NULL){
+    
+    if(strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name,"..")!=0){
+      
+      char ruta_archivo[1024];
+      
+      snprintf(ruta_archivo, sizeof(ruta_archivo),"%s%s",nombreCarpeta,entry->d_name);
+      
+
+      FILE *archivo=fopen(ruta_archivo,"r");
+      //se abre cada archivo uno por uno
+      if(archivo!=NULL){
+
+
+      }
+      
+      
+    }
+      
+  
+  
   
   /*
   Alex, como sugerencia te recomiendo plantear un tipo de algoritmo que verifique
@@ -89,6 +123,9 @@ void mostrarDocumentos(HashMap* hashmap){
       }
     }
   }
+
+  // Ordenar lista por titulo
+  insertionSort(lista,1);
 
   // Mostrar lista ordenada por titulo
   printf("Lista de documentos ordenada por titulo:\n");

@@ -13,6 +13,28 @@ Lista* createList(){
   return lista;
 }
 
+void printLista(Lista* lista){
+  if (lista == NULL){
+    printf("La lista no existe\n");
+    return;
+  }
+
+  NodoLista* current = lista->head;
+
+  while (current != NULL){
+    
+    // Datos principales
+    printf("=========[ %s ]=========", current->libro->titulo);
+    printf("ID: %d \n", current->libro->id);
+    printf("Autor: %s\n", current->libro->autor);
+    printf("Fecha: %s\n", current->libro->fecha);
+    printf("Lenguaje: %s\n", current->libro->lenguaje);
+
+    // Palabras del texto
+    
+  }
+}
+
 // insertar al frente de la lista
 void pushFront(Lista * lista, Libro* libro){
   if (lista == NULL){
@@ -142,20 +164,64 @@ NodoLista* findData(Lista * list, int id){
 }
 
 // 
-void insertionSort(Lista* lista){
+void insertionSort(Lista* lista, int opcion){
   if (lista == NULL){
     printf("Lista no existente, no se puede ordenar\n");
     return;
   }
-  
-  int opcion;
+
+  NodoLista* sorted = NULL; // lista ordenada
+  NodoLista* current = lista->head; // nodo actual
   
   switch (opcion){
     case 1:
       printf("Ordenar por titulo\n");
+      while (current != NULL){
+        NodoLista* next = current->next; // Guardamos el siguiente nodo antes de borrar el actual
+
+        if (sorted == NULL || strcmp(sorted->libro->titulo, current->libro->titulo) < 0){
+          
+          current->next = sorted;
+          current->prev = NULL;
+          if (sorted != NULL){
+            sorted->prev = current;
+          }
+          sorted = current;
+
+          if (current->next == NULL){
+            lista->tail = current;
+          }
+        } else {
+          // Buscamos la posicion correcta en la lista ordenada e insertamos el nodo
+          NodoLista* temp = sorted;
+          while (temp->next != NULL && strcmp(temp->next->libro->titulo, current->libro->titulo) >= 0){
+            temp = temp->next;
+          }
+
+          current->next = temp->next;
+          if (temp->next != NULL){
+            temp->next->prev = current;
+          }
+          
+          current->prev = temp;
+          temp->next = current;
+          
+          if (current->next == NULL){
+            lista->tail = current;
+          }
+        }
+        current = next;
+      }
+
+      lista->head = sorted;
+      break;
     case 2:
       printf("Ordenar por relevancia de palabra\n");
-    case 3:
+      // Falta implementar funcion de calculo de relevancia
+      
+      break;
+    default:
+      printf("Opcion no valida\n");
       
   }
 

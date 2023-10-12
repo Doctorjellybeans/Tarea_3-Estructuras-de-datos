@@ -19,6 +19,7 @@ typedef struct{
 // Libros
 typedef struct {
   int id;
+  char titulo[MAX_LEN];
   char autor[MAX_LEN];
   char fecha[MAX_LEN];
   char lenguaje[MAX_LEN];
