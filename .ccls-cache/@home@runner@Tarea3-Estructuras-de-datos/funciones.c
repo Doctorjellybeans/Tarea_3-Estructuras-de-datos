@@ -28,12 +28,15 @@ void cargarDocumentos(HashMap* hashmap){
       char ruta_archivo[1024];
       
       snprintf(ruta_archivo, sizeof(ruta_archivo),"%s%s",nombreCarpeta,entry->d_name);
+      // transformacion del id a entero 
+      int id=atoi(entry->d_name);
       
+      int indice=hash(id,hashcap);
 
       FILE *archivo=fopen(ruta_archivo,"r");
       //se abre cada archivo uno por uno
       if(archivo!=NULL){
-
+        
 
       }
       
