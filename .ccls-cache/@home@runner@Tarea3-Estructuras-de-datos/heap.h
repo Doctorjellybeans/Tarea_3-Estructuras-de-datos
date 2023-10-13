@@ -3,27 +3,30 @@
 
 #define MAX_LEN 100
 #include "libros.h"
+#include "map.h"
 #include "list.h"
 
-typedef struct heapElem{
-  Libro* libro;
-  int prioridad;
-} heapElem;
+#define MAX_HEAP_SIZE 100
 
-typedef struct Heap {
-  int size;
-  int capac;
-  heapElem* heapArray;
-} Heap;
+// Estructura del nodo almacenado en el montículo binario
+typedef struct NodoMonticulo {
+    void* key; // se calcula con strHash
+    void* value; // diccionario de palabras del libro
+    int priority; // dependiendo del montículo, se equilibra por frecuencia o relevancia
+} NodoMonticulo;
 
-int parent(int i);
+// Estructura del montículo binario
+typedef struct Monticulo {
+    NodoMonticulo heap[MAX_HEAP_SIZE]; // arreglo de diccionarios de palabras
+    int size; // tamaño del monticulo
+} Monticulo;
 
-Heap* createHeap();
+Monticulo* createMonticulo();
 
-Libro* heap_top(Heap* pq);
+void initMonticulo(Monticulo* heap);
 
-void heap_push(Heap* pq, Libro* libro, int prioridad);
+void insertHeap(Monticulo* heap, const void* key, const void* value, int priority);
 
-void heap_pop(Heap* pq);
+NodoMonticulo* extractHeap(Monticulo* heap);
 
 #endif

@@ -6,26 +6,29 @@
 
 #define MAX_LEN 100
 
-typedef struct TablaHash {
-  int capac;
-  int elem;
-  Lista* libros[MAX_LEN];
+// Estructura de la lista almacenada en la tabla hash
+typedef struct HashEntry {
+    struct Lista* lista; // puntero al primer nodo de la lista
+} HashEntry;
+
+// Estructura de la tabla hash
+typedef struct HashMap {
+    int capac; // capacidad del mapa
+    int size; // tamaño del mapa
+    struct HashEntry* entradas[MAX_LEN]; // arreglo de listas
+    unsigned int (*funcionHash)(const void* key); // funcion hash
 } HashMap;
 
-int hash(int id, int capacidad);
+unsigned int hashParaInt(const void* key);
 
-HashMap* createMap(int capacidad);
+unsigned int hashParaString(const void* key);
 
-void destroyMap(HashMap* tabla);
+HashMap* createHashMap(int capac, unsigned int (*funcionHash)(const void* key));
 
-void insertMap(HashMap * tabla, Libro * libro);
+void insert(HashMap* map, const void* key, const void* value);
 
-void eraseMap(HashMap * tabla, int key);
+void* get(HashMap* map, const void* key);
 
-NodoLista* searchMap(HashMap * tabla, int key);
-
-NodoLista* firstMap(HashMap *tabla);
-
-NodoLista* nextMap(NodoLista *nodo);
+NodoLista* getFirstElement(HashMap* map);
 
 #endif

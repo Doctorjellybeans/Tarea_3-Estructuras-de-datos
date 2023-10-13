@@ -3,37 +3,31 @@
 
 #define MAX_LEN 100
 #include "libros.h"
+#include "heap.h"
 
-typedef struct NodoLista{
-  Libro* libro;
-  NodoLista* next;
-  NodoLista* prev;
+// Estructura del nodo almacenado en la lista
+typedef struct NodoLista {
+    void* key; // se calcula con intHash
+    void* value; // contiene id, titulo, autor, fecha y lenguaje del libro
+    struct NodoLista* next;
+    struct NodoLista* prev;
+    struct Monticulo* heapFrecuancia;
+    struct Monticulo* heapRelevancia;
 } NodoLista;
 
+// Estructura de la lista 
 typedef struct Lista {
-  NodoLista* head;
-  NodoLista* tail;
-  int size;
+    struct NodoLista* head; // primer elemento de la lista
+    struct NodoLista* tail; // ultimo elemento de la lista
+    int size; // tamaño de la lista
 } Lista;
 
-Lista* createList();
+Lista* createLista();
 
-void printLista(Lista* lista);
+void initLista(Lista* lista);
 
-void pushFront(Lista * lista, Libro* data);
+void pushBack(Lista* lista, const void* key, const void* value);
 
-void pushBack(Lista * lista, Libro* data);
-
-void pushCurrent(Lista * lista, Libro* data);
-
-void popFront(Lista * lista);
-
-void popBack(Lista * lista);
-
-NodoLista* findData(Lista * lista, int id);
-
-void cleanList(Lista * lista);
-
-void insertionSort(Lista* lista, int opcion);
+NodoLista* findNode(Lista* lista, const void* key);
 
 #endif

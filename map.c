@@ -5,98 +5,63 @@
 #include <ctype.h>
 #include "map.h"
 
-int hash(int id, int capacidad){
-  return id % capacidad;
+#define TABLE_SIZE 100
+
+// Función de hash para enteros
+unsigned int hashParaInt(const void* key) {
+    return *((const int*)key) % TABLE_SIZE;
 }
 
-HashMap* createMap(int capacidad){
-  HashMap* tabla = (HashMap*)malloc(sizeof(HashMap));
-  if (tabla == NULL){
-    printf("Error al asignar memoria para la tabla\n");
-    return NULL;
-  }
-  tabla->capac = capacidad;
-  tabla->elem = 0;
-
-  for (int i = 0; i < capacidad; i++){
-    tabla->libros[i] = NULL;
-  }
-
-  return tabla;
+// Función de hash para cadenas de texto (string)
+unsigned int hashParaString(const void* key) {
+    const char* str = (const char*)key;
+    unsigned int hash = 0;
+    while (*str) {
+        hash = (hash * 31) + *str;
+        str++;
+    }
+    return hash % MAX_LEN;
 }
 
-void insertMap(HashMap * tabla, Libro * libro) {
-    int indice = hash(libro->id, tabla->capac);
+HashMap* createHashMap(int capac, unsigned int (*funcionHash)(const void* key)) {
+    HashMap* map = (HashMap*)malloc(sizeof(HashMap));
+    map->capac = capac;
+    map->size = 0;
+    map->funcionHash = funcionHash;
 
-    // Creamos el nodo
-    NodoLista *nuevoNodo = (NodoLista *)malloc(sizeof(NodoLista));
-    if (nuevoNodo == NULL) {
-        printf("Error al asignar memoria para el nodo\n");
-        return;
+    for (int i = 0; i < capac; ++i) {
+        map->entradas[i] = (HashEntry*)malloc(sizeof(HashEntry));
+        map->entradas[i]->lista = (Lista*)malloc(sizeof(Lista));
+        initLista(map->entradas[i]->lista);
     }
 
-    // Asignamos los valores
-    nuevoNodo->libro = libro;
-    nuevoNodo->next = NULL;
-    nuevoNodo->prev = NULL;
+    return map;
+}
 
-    // Verificamos si existen colisiones
-    if (tabla->libros[indice] == NULL) {
-        // Si no hay colisión, creamos la nueva lista
-        Lista *nuevaLista = createList();
+void insert(HashMap* map, const void* key, const void* value) {
+    unsigned int hash = map->funcionHash(key);
+    HashEntry* entry = map->entradas[hash];
+    pushBack(entry->lista, key, value);
+    map->size++;
+}
 
-        pushFront(nuevaLista, libro);
+void* get(HashMap* map, const void* key) {
+    unsigned int hash = map->funcionHash(key);
+    HashEntry* entry = map->entradas[hash];
+    NodoLista* node = findNode(entry->lista, key);
 
-        tabla->libros[indice] = nuevaLista;
-        tabla->elem++;
+    if (node != NULL) {
+        return node->value;
     } else {
-        // Si hay colision, agregamos el nodo a la lista
-        pushFront(tabla->libros[indice], libro);
-        tabla->elem++;
-    }
-}
-
-NodoLista* firstMap(HashMap *tabla){
-  if (tabla->libros[0] == NULL){
-    return NULL;
-  }
-  
-  return tabla->libros[0]->head;
-}
-
-NodoLista* nextMap(NodoLista *nodo){
-  if (nodo == NULL || nodo->next){
-    return NULL;
-  }
-  
-  return nodo->next;
-}
-
-NodoLista* searchMap(HashMap * tabla, int id) {
-    if (tabla == NULL) {
-        printf("Error al buscar el libro\n");
         return NULL;
     }
-
-    int indice = hash(id, tabla->capac);
-
-    if (tabla->libros[indice] == NULL) {
-        // No hay lista en este índice, por lo que el libro no está en la tabla
-        printf("No se encontró el libro en la tabla\n");
-        return NULL;
-    }
-
-    // Utilizamos findData para buscar el libro en la lista
-    return findData(tabla->libros[indice], id);
 }
 
-
-void destroyMap(HashMap* tabla) {
-    for (int i = 0; i < tabla->capac; i++) {
-        if (tabla->libros[i] != NULL) {
-            cleanList(tabla->libros[i]);
-            free(tabla->libros[i]);
+NodoLista* getFirstElement(HashMap* map) {
+    for (int i = 0; i < map->capac; ++i) {
+        if (map->entradas[i]->lista->head != NULL) {
+            return map->entradas[i]->lista->head;
         }
     }
-    free(tabla);
+    return NULL;  // Si la tabla está vacía
 }

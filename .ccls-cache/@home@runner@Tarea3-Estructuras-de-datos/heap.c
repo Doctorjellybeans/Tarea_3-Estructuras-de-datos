@@ -5,89 +5,84 @@
 #include <ctype.h>
 #include "heap.h"
 
-int parent(int i){
-  return (i-1)/2;
-}
-
-Heap* createHeap(){
-  Heap* newHeap = (Heap*)malloc(sizeof(Heap));
-  
-  newHeap->heapArray = (heapElem*)malloc(sizeof(heapElem) * 3);
-  newHeap->capac = 3;
-  newHeap->size = 0;
-
-  return newHeap;
-}
-
-Libro* heap_top(Heap* pq){
-  if (pq == NULL){
-    printf("Error: heap esta vacio\n");
-    return NULL;
-  }
-
-  return pq->heapArray[0].libro;
-}
-
-void heap_push(Heap* pq, Libro* libro, int priority){
-  if (pq == NULL){
-    printf("Error: heap esta vacio\n");
-    return;
-  }
-
-  // Agrandar heap
-  if (pq->size == pq->capac){
-    pq->heapArray = (heapElem*)realloc(pq->heapArray, sizeof(heapElem) * (pq->capac * 2));
-    pq->capac = pq->capac * 2;
-  }
-
-  // Proceso de insercion
-  int i = pq->size;
-  pq->heapArray[i].libro = libro;
-  pq->heapArray[i].prioridad = priority;
-  
-  while (i != 0 && pq->heapArray[parent(i)].prioridad < pq->heapArray[i].prioridad){
-    heapElem temp = pq->heapArray[i];
-    pq->heapArray[i] = pq->heapArray[parent(i)];
-    pq->heapArray[parent(i)] = temp;
-    i = parent(i);
-  }
-  
-  pq->size++;
-}
-
-void heap_pop(Heap* pq){
-  if (pq == NULL){
-    printf("Error: heap esta vacio\n");
-    return;
-  }
-
-  // Proceso de eliminacion
-  pq->heapArray[0] = pq->heapArray[pq->size - 1];
-  pq->size--;
-  int i = 0;
-  while (i < pq->size){
-    int hijoIzq = 2 * i + 1;
-    int hijoDer = 2 * i + 2;
-    int hijoMayor = i;
-
-    // Comparacion de prioridades
-    if (hijoIzq < pq->size && pq->heapArray[hijoIzq].prioridad > pq->heapArray[hijoMayor].prioridad){
-      hijoMayor = hijoIzq;
+Monticulo* createMonticulo() {
+    Monticulo* heap = (Monticulo*)malloc(sizeof(Monticulo));
+    if (heap == NULL) {
+        // Manejar error de asignación de memoria
+        exit(EXIT_FAILURE);
     }
-    
-    if (hijoDer < pq->size && pq->heapArray[hijoDer].prioridad > pq->heapArray[hijoMayor].prioridad){
-      hijoMayor = hijoDer;
+    heap->size = 0;
+    return heap;
+}
+
+
+void initMonticulo(Monticulo* heap) {
+    heap->size = 0;
+}
+
+void insertHeap(Monticulo* heap, const void* key, const void* value, int priority) {
+    if (heap->size == MAX_HEAP_SIZE) {
+        // Montículo lleno, manejar según sea necesario (por ejemplo, aumentar la capacidad).
+        return;
     }
 
-    // Intercambio de prioridades
-    if (hijoMayor != i){
-      heapElem temp = pq->heapArray[i];
-      pq->heapArray[i] = pq->heapArray[hijoMayor];
-      pq->heapArray[hijoMayor] = temp;
-      i = hijoMayor;
-    } else { 
-      break; // Terminar proceso
+    NodoMonticulo* newNode = &(heap->heap[heap->size]);
+    newNode->key = (void*)key;
+    newNode->value = (void*)value;
+    newNode->priority = priority;
+
+    int index = heap->size;
+    int parent = (index - 1) / 2;
+
+    while (index > 0 && heap->heap[parent].priority > newNode->priority) {
+        // Intercambiar con el padre si es necesario para mantener la propiedad del montículo.
+        heap->heap[index] = heap->heap[parent];
+        index = parent;
+        parent = (index - 1) / 2;
     }
-  }
-  
+
+    heap->heap[index] = *newNode;
+    heap->size++;
+}
+
+NodoMonticulo* extractHeap(Monticulo* heap) {
+    if (heap->size == 0) {
+        return NULL; // Montículo vacío.
+    }
+
+    NodoMonticulo* minNode = &(heap->heap[0]);
+    heap->size--;
+
+    // Mover el último nodo al principio y ajustar para mantener la propiedad del montículo.
+    heap->heap[0] = heap->heap[heap->size];
+
+    int index = 0;
+    int leftChild, rightChild, minChild;
+
+    while (1) {
+        leftChild = 2 * index + 1;
+        rightChild = 2 * index + 2;
+        minChild = index;
+
+        if (leftChild < heap->size && heap->heap[leftChild].priority < heap->heap[minChild].priority) {
+            minChild = leftChild;
+        }
+
+        if (rightChild < heap->size && heap->heap[rightChild].priority < heap->heap[minChild].priority) {
+            minChild = rightChild;
+        }
+
+        if (minChild != index) {
+            // Intercambiar con el hijo mínimo si es necesario para mantener la propiedad del montículo.
+            NodoMonticulo temp = heap->heap[index];
+            heap->heap[index] = heap->heap[minChild];
+            heap->heap[minChild] = temp;
+
+            index = minChild;
+        } else {
+            break;
+        }
+    }
+
+    return minNode;
 }
