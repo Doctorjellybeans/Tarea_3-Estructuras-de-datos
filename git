@@ -1,0 +1,74 @@
+[33mcommit d36109fdfad7abbeeb35a56d0a35a19537a7584f[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Doctorjellybeans <108247795+Doctorjellybeans@users.noreply.github.com>
+Date:   Fri Oct 13 01:38:20 2023 +0000
+
+    Cambios cambios y mas cambios
+
+[33mcommit 1ed4c87afe4d5d3c05bd44ade1db828a7a762435[m
+Author: alexalfaro-ctrl <142177428+alexalfaro-ctrl@users.noreply.github.com>
+Date:   Thu Oct 12 02:12:40 2023 +0000
+
+    avance función cargar documentos
+    
+    se ingresa el nombre y se entra a los archivos
+
+[33mcommit 7039983c6634fc9c5c2814cc18ef0880cccb62de[m
+Author: Doctorjellybeans <108247795+Doctorjellybeans@users.noreply.github.com>
+Date:   Thu Oct 12 01:33:45 2023 +0000
+
+    Avance de funciones
+    
+    avance de funcion insertionSort en list.c y list.h
+    
+    avance de funciones que no se cuales son xd
+
+[33mcommit 00b62ec27a54441bddbc0bf0a722bee3a0e09547[m
+Author: Doctorjellybeans <108247795+Doctorjellybeans@users.noreply.github.com>
+Date:   Wed Oct 11 03:18:53 2023 +0000
+
+    Avance en implementacion de funciones vitales
+    
+    para el avance de mostrarDocumentos( ) se agregaron un par de funciones nuevas en list.h y list.c (insertion_sort) pero aun se debe de terminar
+    
+    también se planteo la estrategia a seguir para la funcion cargarDocumentos( ).
+
+[33mcommit 5767bc7d88d1206bc6b4d16e22dc67a3140c3a7d[m
+Author: Doctorjellybeans <108247795+Doctorjellybeans@users.noreply.github.com>
+Date:   Wed Oct 11 02:15:20 2023 +0000
+
+    Implementación de funciones
+    
+    se terminaron de agregar las funciones prototipadas de heap.h en heap.c.
+    
+    además se agrego la funcion parent en heap.h y heap.c.
+
+[33mcommit c3d03bad5d3e63afdb648060fe9de4814c069895[m
+Author: Doctorjellybeans <108247795+Doctorjellybeans@users.noreply.github.com>
+Date:   Wed Oct 11 01:43:22 2023 +0000
+
+    Ejecución del programa
+    
+    ahora se puede ejecutar el programa utilizando el comando bash test.sh en la consola
+
+[33mcommit ea918f04839edf1d1ebdeaf5ca11f9605e9c99c2[m
+Author: Doctorjellybeans <108247795+Doctorjellybeans@users.noreply.github.com>
+Date:   Wed Oct 11 01:25:26 2023 +0000
+
+    Implementación de funciones y de archivos vitales (vicho)
+    
+    Se agregaron y modificaron los siguientes archivos:
+    
+    main.c -> implementación de un main básico.
+    heap.c -> implementación de las funciones prototipadas en heap.h.
+    list.c -> implementación de las funciones prototipadas en list.h.
+    map.c -> implementación de las funciones prototipadas en map.h.
+    heap.h -> creación de estructuras + prototipado de las funciones.
+    list.h -> creación de estructuras + prototipado de las funciones.
+    map.h -> creación de estructuras + prototipado de las funciones.
+    libros.h -> creación de estructuras.
+
+[33mcommit d3ec2b2ff3a872b7aec7c5c3db71031f0b11777e[m
+Author: Doctorjellybeans <108247795+Doctorjellybeans@users.noreply.github.com>
+Date:   Tue Oct 10 10:32:02 2023 -0300
+
+    Initial commit

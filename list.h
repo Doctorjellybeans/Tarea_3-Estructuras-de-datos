@@ -8,7 +8,7 @@
 // Estructura del nodo almacenado en la lista
 typedef struct NodoLista {
     void* key; // se calcula con intHash
-    void* value; // contiene id, titulo, autor, fecha y lenguaje del libro
+    void* value; // contiene id, titulo
     struct NodoLista* next;
     struct NodoLista* prev;
     struct Monticulo* heapFrecuancia;

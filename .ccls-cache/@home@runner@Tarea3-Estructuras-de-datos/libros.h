@@ -6,7 +6,9 @@
 typedef struct{
   char palabra[MAX_LEN];
   int posiciones[MAX_LEN];
+  int contPalabra;
   int frecuencia;
+  float relevancia;
 } Palabra;
 
 // Texto del libro

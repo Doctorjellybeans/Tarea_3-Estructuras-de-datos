@@ -1,0 +1,75 @@
+#include "funciones.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <dirent.h>
+
+
+void mostrarDocumentos(HashMap* tabla){
+  if (tabla == NULL){
+    printf("No se ingreso correctamente la tabla para mostrar documentos");
+    return;
+  }
+
+  // recorrer la tabla y insertar elementos en una lista
+  Lista* lista = createLista();
+  for (int i = 0; i < tabla->size; i++){
+    pushBack(lista, const void *key, const void *value)
+  }
+  
+
+}
+
+// Funcion para almacenar cada Libro en Hashmap
+void cargarDocumentos(HashMap* hashmap){
+  char nombreCarpeta[100];
+  printf("Ingrese el nombre de la carpeta ");
+  scanf("%s", nombreCarpeta);
+  
+
+  DIR* carpeta;
+  struct dirent* entry;
+  carpeta = opendir(nombreCarpeta);
+  if (carpeta == NULL){
+    printf("No se pudo abrir la carpeta");
+    return;
+  }
+  
+  while((entry = readdir(carpeta)) != NULL){
+    
+    if(strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name,"..")!=0){
+      
+      char ruta_archivo[1024];
+      
+      snprintf(ruta_archivo, sizeof(ruta_archivo),"%s%s",nombreCarpeta,entry->d_name);
+      // transformacion del id a entero 
+      int id = atoi(entry->d_name);
+
+      
+      int indice = hashParaInt(&id);
+      Libro *libro = (Libro*)malloc(sizeof(Libro));
+      
+      libro->id = id;
+      
+      FILE *archivo = fopen(ruta_archivo,"r");
+      //se abre cada archivo uno por uno
+      if(archivo!=NULL){
+        
+        tabcreateHashMap(1000,hashParaString());
+
+        if (get(tabla, hashParaString(libro->i)))
+        for(int i=0;i<9;i++){
+          fgets(ruta_archivo,sizeof(ruta_archivo),archivo);
+        }
+        
+        
+
+        
+
+      }
+      
+      
+    }
+  
+    
+}
