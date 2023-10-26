@@ -1,100 +1,20 @@
 # Tarea_#3 Estructuras de datos
 
-# Instrucciones de ejecucion
+# Instrucciones de ejecucion:
+1.- ejecutar en el replt(lugar donde se programo)
+    link replt: https://replit.com/join/hhbqfszdoc-doctorjellybean
+2.-ejecutar con el boton run
+#Bugs del codigo:
+*La mayoria de errores del programa se asocian a como este gestiona la informacion de cada archivo. El programa no es capaz de hacer un seguimiento al numero de acurrencias de una palabra, debido a esto la mayoria de funciones que requieran de esta variable fallan. En cuanto a su explicación, creemos que este tiene que ver con la clave que se le asigna a cada cadena a la hora de ingresar la cadena en la tabla temporal ya que gracias a esta es que determinamos si la palabra fue previamente ingresada
 
+*Otro de los errores de nuestro programa tiene que ver con la busqueda de libros por titulo. Supongamos que queremos buscar "El principito", si ingresamos ambas palabras no se encontrara el libro PERO si se ingresan palabras adicionales SI se encuentra. Una posible razon es que no estemos procesando de manera correcta la ultima cadena de la entreda por teclado (quizas nos falta eliminar un caracter especial).
 
-## Buscador de documentos
+*Al momento de calcular la relevancia y la frecuencia, a pesar de que las operaciones se realicen bien la información que se muestra por pantalla es erronea, esto se debe a lo que planteamos al comienzo (la información no se esta guardando correctamente).
 
-La pagina del proyecto Gutenberg ofrece miles de libros gratuitos de manera legal.
+Si llamamos a la funcion mostrarContexto esta solo nos mostrara el contexto de la primera ocurrencia de la palabra ingresada por teclado. Esto puede deberse a lo que se plantea en un inicio o a que no se desapile bien la pila de posiciones.
+# Contrubuciones individuales:
+Vicente Rosales: diseño implementacion de las funciones restantes
+nivel contribucion=3;
 
-- Descargue 100 libros y almacenelos en esta carpeta GDrive 
-- El nombre del archivo corresponde a un numero identificador del libro
-- El titulo del libro se puede encontrar en la primera linea de cada archivo
-
-  Formato de los libros:
-    The project Gutenberg eBook of <nombre del libro>
-    ... (contenido del libro)
-  
-## Las funciones de la aplicaion de terminal deben ser
-
-1) Cargar documentos:
-    El usuario *inserta* el nombre del archivo que se desea leer (separados por espacios) y el programa lo lee.
-    
-2) Mostrar documentos ordenados:
-    La aplicacion muestra las id y los titulos de los libros *ORDENADOS* por titulo y ademas se muestra la cantidad de palabras y caracteres que tiene cada libro.
-   
-3) Buscar un libro por titulo:
-    El usuario coloca algunas palabras separadas por espacio y la aplicaion muestra los titulos de libros que contienen todas las palabras.
-    
-4) Palabras con mayor frecuencia:
-    El usuario ingresa el id del libro y la aplicaion muestra las 10 palabras que se repiten con mayor frecuencia (indicando la cantidad de ocurrencias de las mismas).
-
-      Frecuencia = numero_de_ocurrencias / total_de_palabras
-    
-5) Palabras mas relevantes:
-    El usuario ingresa una titulo y la aplicacion muestra la 10 palabras mas relevantes de este.
-
-      p: Relevancia de una palabra
-      d: Documento
-
-      Formula: (cant_de_p_en_d / cant_de_palabras_en_d) * log( cant_de_d / cant_de_d_que_contienen_p )
-      
-6) Buscar por palabra:
-    El usuario ingresa una palabra y la aplicaion muestra los libros (id y titulo) que tienen la palabra en su contenido *los libros deben ser ordenados segun la relevancia de la palabra buscada*.
-
-      Ejemplo: si busco jesus, la biblia deberia aparecer primero
-    
-7) Mostrar palabra en su contexto dentro del libro:
-    El usuario ingresa titulo del libro y la palabra que se desea buscar. La aplicaion debe de mostrar las distintas apariciones de la palabra en el documento *con su contexto* (se deben mostrar 5 palabras atras y 5 adelante).
-
-# Metodologia a emplear
-
-## Estrategias:
-
-TDAs: 
-  - Mapas
-  - Listas
-  - Colas de prioridad
-  - Pilas
-  - \\\\\\
-
-Estructuras:
-  - Tablas hash
-  - Arreglos
-  - Listas enlazadas
-  - Monticulos binarios
-  - \\\\\\
-  
-Algoritmos:
-  - de ordenacion
-  - de busqueda
-  - \\\\\\
-
-## Estructura de los nodos (only diseño)
-
-Libro:
-  - ID
-  - Titulo
-  - Texto (palabras del texto)
-  - \\\\\\
-
-Texto:
-  - Palabra
-  - Numero de palabras
-  - Numero de caracteres
-  - Palabras frecuentes
-  - Palabras relevantes
-  - \\\\\\
-
-Palabra:
-  - Posicion(es)
-  - Numero de ocurrencias
-  - Palabra
-  - \\\\\\
-
-## Sugerencias
-
-1) No es necesario almacenar los textos completos, en la aplicacion *PERO SI LAS PALABRAS*.
-2) Use mapas para guardar las palabras de cada libro. Asocie cada palabra al numero de apariciones en el libro.
-3) Use mapas o listas oara guardar los titulos asiciados a cada palabra.
-4) Para encontrar el contexto de las ocurrencias en cada palabra del documento puede asociar a cada palabra una lista con las posiciones dentro del archivo en donde fue encontrada. Puede usar <ftell> para saber la posicion de las palabras.
+Alex Alfaro: funcion cargarLibrosDesdeCarpeta,Solucion de diversos Bugs relevantes,ayuda en la creacion de funciones menos relevantes
+nivel contribucion=2;
