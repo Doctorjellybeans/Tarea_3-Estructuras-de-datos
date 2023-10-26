@@ -1,34 +1,45 @@
 #ifndef MAP_h
 #define MAP_h
 
-#include "libros.h"
 #include "list.h"
+#include "libros.h"
+#include <stdlib.h>
+#include <stdint.h>
 
-#define MAX_LEN 100
-
-// Estructura de la lista almacenada en la tabla hash
+// Estructura de la lista almacenada en el mapa hash
 typedef struct HashEntry {
-    struct Lista* lista; // puntero al primer nodo de la lista
+  struct Lista *lista; 
 } HashEntry;
 
-// Estructura de la tabla hash
+// Estructura del mapa hash
 typedef struct HashMap {
-    int capac; // capacidad del mapa
-    int size; // tamaño del mapa
-    struct HashEntry* entradas[MAX_LEN]; // arreglo de listas
-    unsigned int (*funcionHash)(const void* key); // funcion hash
+  int capacidad;                  // capacidad virtual del mapa
+  int tamano;                     // tamaño real del mapa
+  struct HashEntry **entradas;    // arreglo de listas
 } HashMap;
 
-unsigned int hashParaInt(const void* key);
+// Funcion para inicializar mapa hash
+HashMap *mapa_inicializar(unsigned int capacidad);
 
-unsigned int hashParaString(const void* key);
+// Funcion para buscar un objeto apartrir de una clave
+NodoLista *mapa_buscar(HashMap *mapa, void *clave);
 
-HashMap* createHashMap(int capac, unsigned int (*funcionHash)(const void* key));
+// Funcion para insertar un objeto en un mapa hash
+void mapa_insertar(HashMap *mapa, void *clave, void *datos, size_t tamDatos, TipoDato tipo);
 
-void insert(HashMap* map, const void* key, const void* value);
+// Funcion para liberar memoria usada por el mapa hash
+void mapa_liberar(HashMap *mapa);
 
-void* get(HashMap* map, const void* key);
+// Funcion hash
+uint32_t fnv1a_hash(const char* str);
 
-NodoLista* getFirstElement(HashMap* map);
+// Funcion para mostar el contenido del mapa 
+void mostrar_contenido_mapa(HashMap *mapa, int num_elementos, ...);
+
+// Funcion para agrandar el mapa
+void mapa_enlarge(HashMap *mapa);
+
+// Funcion para encriptar cadenas (por el momento no uses esta funcion)
+char *bytesToHex(const uint8_t *bytes, size_t length);
 
 #endif

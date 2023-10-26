@@ -1,32 +1,35 @@
-#ifndef HEAP_h
-#define HEAP_h
+#ifndef HEAP_H
+#define HEAP_H
 
-#define MAX_LEN 100
-#include "libros.h"
-#include "map.h"
-#include "list.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-#define MAX_HEAP_SIZE 100
+// Estructura para representar un nodo con información y prioridad.
+typedef struct {
+  double prioridad;
+  void *data;
+} NodoHeap;
 
-// Estructura del nodo almacenado en el montículo binario
-typedef struct NodoMonticulo {
-    void* key; // se calcula con strHash
-    void* value; // diccionario de palabras del libro
-    int priority; // dependiendo del montículo, se equilibra por frecuencia o relevancia
-} NodoMonticulo;
+// Estructura para representar un montículo binario.
+typedef struct {
+  NodoHeap *datos; // Un arreglo para almacenar los nodos del montículo.
+  int tamano;      // El número actual de elementos en el montículo.
+  int capacidad;   // La capacidad máxima del montículo.
+} Heap;
 
-// Estructura del montículo binario
-typedef struct Monticulo {
-    NodoMonticulo heap[MAX_HEAP_SIZE]; // arreglo de diccionarios de palabras
-    int size; // tamaño del monticulo
-} Monticulo;
+// Función para inicializar un montículo sin capacidad inicial.
+Heap *heap_inicializar();
 
-Monticulo* createMonticulo();
+// Función para liberar la memoria utilizada por el montículo.
+void liberar_heap(Heap *heap);
 
-void initMonticulo(Monticulo* heap);
+// Función para insertar un nuevo elemento en el montículo.
+void heap_insertar(Heap *heap, double prioridad, void *data);
 
-void insertHeap(Monticulo* heap, const void* key, const void* value, int priority);
+// Función para extraer el elemento con la mayor prioridad (raíz del montículo).
+NodoHeap extraer_max(Heap *heap);
 
-NodoMonticulo* extractHeap(Monticulo* heap);
+// Función para asegurar que el montículo se mantenga como un max-heap.
+void max_heapify(Heap *heap, int indice);
 
 #endif

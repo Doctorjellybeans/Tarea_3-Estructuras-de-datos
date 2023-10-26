@@ -1,33 +1,51 @@
 #ifndef LIST_h
 #define LIST_h
 
-#define MAX_LEN 100
 #include "libros.h"
-#include "heap.h"
+#include "pila.h"
+#include "string.h"
+#include <stddef.h>
+
+// Enumeración para representar los tipos de datos almacenados en la lista
+typedef enum {
+  CADENA,
+  LIBRO,
+} TipoDato;
 
 // Estructura del nodo almacenado en la lista
 typedef struct NodoLista {
-    void* key; // se calcula con intHash
-    void* value; // contiene id, titulo
-    struct NodoLista* next;
-    struct NodoLista* prev;
-    struct Monticulo* heapFrecuancia;
-    struct Monticulo* heapRelevancia;
+  void *clave;     // Clave del dato
+  void *datos;     // Valores recolectados
+  size_t tamDatos; // Tamaño de los datos
+  TipoDato tipo;   // Tipo de datos (enumeración)
+  struct NodoLista *siguiente;
+  Pila* pila;
 } NodoLista;
 
-// Estructura de la lista 
+// Estructura de la lista
 typedef struct Lista {
-    struct NodoLista* head; // primer elemento de la lista
-    struct NodoLista* tail; // ultimo elemento de la lista
-    int size; // tamaño de la lista
+  NodoLista *cabeza; // Primer elemento de la lista
+  NodoLista *cola;   // Último elemento de la lista
+  int tamano;        // Tamaño de la lista
 } Lista;
 
-Lista* createLista();
 
-void initLista(Lista* lista);
+// Funcion para inicializar la lista
+Lista* lista_inicializar();
 
-void pushBack(Lista* lista, const void* key, const void* value);
+// Funcion para insertar objetos con clave en la lista
+void lista_insertar(Lista* lista, void* clave, void* dato, size_t tamDato, TipoDato tipo);
 
-NodoLista* findNode(Lista* lista, const void* key);
+// Funcion para encontrar objetos con clave en la lista
+NodoLista* lista_buscar(Lista* lista, void* clave, TipoDato tipo);
+
+// Funcion para liberar la memoria usada por lista
+void lista_liberar(Lista* lista);
+
+// Funcion para mostrar elementos de la lista
+void lista_mostrar(Lista* lista, int num_elementos, ...);
+
+// Insertion sort (ordenar documentos por titulo)
+void insertion_sort(Lista* lista);
 
 #endif

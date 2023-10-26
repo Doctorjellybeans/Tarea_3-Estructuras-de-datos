@@ -1,5 +1,8 @@
 # Tarea_#3 Estructuras de datos
 
+# Instrucciones de ejecucion
+
+
 ## Buscador de documentos
 
 La pagina del proyecto Gutenberg ofrece miles de libros gratuitos de manera legal.
@@ -29,7 +32,7 @@ La pagina del proyecto Gutenberg ofrece miles de libros gratuitos de manera lega
       Frecuencia = numero_de_ocurrencias / total_de_palabras
     
 5) Palabras mas relevantes:
-    El usuario ingresa una palabra y la aplicacion muestra la 10 palabras mas relevantes de este.
+    El usuario ingresa una titulo y la aplicacion muestra la 10 palabras mas relevantes de este.
 
       p: Relevancia de una palabra
       d: Documento
@@ -49,45 +52,44 @@ La pagina del proyecto Gutenberg ofrece miles de libros gratuitos de manera lega
 ## Estrategias:
 
 TDAs: 
-  - mapas
-  - listas
-  - arboles
+  - Mapas
+  - Listas
+  - Colas de prioridad
+  - Pilas
   - \\\\\\
 
 Estructuras:
-  - tablas hash
-  - monticulos binarios
-  - listas enlazadas
+  - Tablas hash
+  - Arreglos
+  - Listas enlazadas
+  - Monticulos binarios
   - \\\\\\
   
 Algoritmos:
   - de ordenacion
   - de busqueda
-  - de equilibrio
   - \\\\\\
 
-## Estructura de los nodos
+## Estructura de los nodos (only diseño)
 
 Libro:
-  - id
-  - titulo
-  - autor
-  - fecha
-  - lenguaje
-  - texto (palabras del texto)
+  - ID
+  - Titulo
+  - Texto (palabras del texto)
   - \\\\\\
 
 Texto:
-  - palabra
+  - Palabra
+  - Numero de palabras
+  - Numero de caracteres
+  - Palabras frecuentes
+  - Palabras relevantes
   - \\\\\\
 
 Palabra:
-  - posicion(es)
-  - numero de veces
-  - \\\\\\
-
-Posicion(es):
-  - contexto
+  - Posicion(es)
+  - Numero de ocurrencias
+  - Palabra
   - \\\\\\
 
 ## Sugerencias

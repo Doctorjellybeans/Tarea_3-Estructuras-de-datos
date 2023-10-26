@@ -1,24 +1,27 @@
-#ifndef FUNCIONES_h
-#define FUNCIONES_h
+#ifndef FUNCTIONS_h
+#define FUNCTIONS_h
 
+#include <stdio.h>
 #include "libros.h"
 #include "list.h"
-#include "heap.h"
 #include "map.h"
+#include "pila.h"
+#include "heap.h"
 
-#define MAX_LEN 100
+int cargarLibrosDesdeCarpeta(HashMap* hashmap);
 
-void cargarDocumentos(HashMap* hashmap);
+void mostrarDocumentosOrdenados(HashMap* hashmap);
 
-void mostrarDocumentos(HashMap* hashmap);
+void palabrasMayorFrecuencia();
 
-void Mayor_frecuencia();
+void buscarLibroPorTitulo(HashMap *mapa);
 
-void mostrarPalabrasRelevantes();
+void mostrarPalabrasRelevantes(HashMap* mapa, int num_documentos);
 
 void buscarPorPalabras();
 
-void mostrarContexto();
+void mostrarContexto(HashMap* mapa);
 
+void mostrar_contenido_tabla_temp(HashMap *tabla_temp);
 
 #endif
